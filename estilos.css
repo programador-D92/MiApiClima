@@ -1,0 +1,198 @@
+/* Variables globales root */
+:root{
+  --color-principal: #254F67;
+  --color-contenedores: #151515;
+}
+
+* { /* se recomienda colocar al inio de cada proyecto para no permitir espaciados no deseados  */
+  margin: 0;
+
+}
+
+/* Estilos del mapa */
+
+  body {
+      font-family: 'Fira Sans', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .principal{
+    display: flex;
+    background-color: #2980b9;
+    flex-direction: column;
+    }
+
+    .titulo {
+    color: white;
+    padding: 1em;  
+    display: flex;               /* propiedad display*/
+    justify-content: start;   /* Centrado horizontal */
+    align-items: center;       /* Centrado vertical */
+    height: 4rem;
+    width: 100%;
+    margin-left: 3rem;
+    }
+
+
+    h1 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+
+    #map {
+      height: 40rem;
+      width: 100%;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1em;
+      background-color: #ecf0f1;
+      font-size: 0.9em;
+    }
+
+ /* termina estilos del mapa */
+
+/* estilos */
+
+.name-1{
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    margin-top: 0;
+    padding: 2rem 0 2rem 0;
+}
+
+
+
+
+/*estilos acordeon-item-uno*/
+
+.recomemdacion-item-uno{
+    display: none;
+    margin-top: 4rem;
+}
+
+.acordeon-item-uno.open .recomemdacion-item-uno{
+    display: block;
+}
+
+.arrow{
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.acordeon-item-uno.open .arrow{
+    transform: rotate(90deg);
+}
+
+
+
+/*estilo en imagen 2 y texto 2 */
+
+
+
+.item-2{
+    display: flex;
+    justify-content: end;
+    flex-direction: row-reverse;
+    margin-top: 3rem;
+  
+}
+
+
+.img-2{
+    width: 45rem;
+    height: 25rem;   
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+    border: 0.2324rem solid #08090F;
+}
+
+
+
+
+/*estilo en imagen 3 y texto 3 */
+
+
+
+.item-3{
+    display: flex;
+}
+
+.item-4{
+    display: flex;
+    justify-content: end;
+    flex-direction: row-reverse;
+}
+
+.item-5{
+    display: flex;
+}
+
+.item-6{
+    display: flex;
+    justify-content: end;
+    flex-direction: row-reverse;
+}
+
+/* estilo en imagenes */
+
+
+
+/* efectos de deslazamiento */
+
+
+.img-3{
+    width: 35rem;
+    height: 25rem;
+    margin: 2rem 0 0 2rem;
+}
+
+.img-4{
+    width: 35rem;
+    height: 25rem;
+    margin: 2rem 0 0 2rem;
+}
+
+.img-5{
+    width: 35rem;
+    height: 25rem;
+    margin: 2rem 0 0 2rem;
+}
+
+.img-6{
+    width: 35rem;
+    height: 25rem;
+    margin: 2rem 0 0 2rem;
+}
+
+
+/* estilo en texto de imagenes */
+.clima-1{
+    margin: 2rem 0 0 2rem;
+}
+
+.clima-2{
+    margin: 4rem 0 0 2rem;
+}
+
+.clima-3{
+    margin: 2rem 0 0 2rem;
+}
+
+.clima-4{
+    margin: 2rem 0 0 2rem;
+}
+
+.clima-5{
+    margin: 2rem 0 0 2rem;
+}
+
+.clima-6{
+    margin: 2rem 2rem 0 0;
+}
