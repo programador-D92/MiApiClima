@@ -10,10 +10,16 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Lobster&family=Michroma&family=Pacifico&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<<<<<<< HEAD
+=======
+<!-- Estilos de Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+>>>>>>> consumo-api-map
     <link rel="stylesheet" href="estilos.css">
     <title>Document</title>
 </head>
 <body>
+<<<<<<< HEAD
     <header class="cabecera">
         <div class="principal">
             <h1 class="text-principal">Clima en tiempo real</h1>
@@ -35,6 +41,30 @@
             <div class="contenido-1">
                  <p class="clima-1">Huracanes</p>
             <ul>
+=======
+
+  <!-- CABECERA -->
+  <header class="principal">
+    <h1 class="titulo">DíazWeatherNow</h1>
+  </header>
+
+  <!-- CONTENEDOR DEL MAPA -->
+  <div id="map"></div>
+
+    <section class="galery">
+         <section class="sugerenci">
+            <h1 class="name-1">Recomendaciones útiles para situaciones climáticas extremas</h1>
+        </section>
+
+        <article class="acordeon-item-uno">
+                <div class="contenido-uno" onclick="toggleContenido(this)">
+                 <h3 class="titulo-huracanes">Huracanes</h3>
+                  <span class="arrow">▶</span>
+            </div>
+
+            <div class="recomemdacion-item-uno">
+              <ul>
+>>>>>>> consumo-api-map
                 <li>Mantente informado con fuentes oficiales (Conagua, Protección Civil).</li>
                 <li>Cubre ventanas con madera o cinta adhesiva en forma de X.</li>
                 <li>Almacena agua potable y alimentos no perecederos.</li>
@@ -45,11 +75,27 @@
             </div>
          </article>
 
+<<<<<<< HEAD
          <article class="item-2">
             <img src="img/tormentas-electricas.jpg" alt="Descripcion-1" class="img-2">
 
             <div class="contenido-2">
             <p class="clima-2">Tormentas Eléctricas</p>
+=======
+  <script>
+  function toggleContenido(element) {
+    const parent = element.parentElement;
+    parent.classList.toggle('open');
+  }
+  </script>
+
+
+         <article class="acordeon-item-dos">
+           
+
+            <div class="contenido-2">
+            <h3 class="clima-2">Tormentas Eléctricas</h3>
+>>>>>>> consumo-api-map
               <ul>
                 <li>Evita salir a la calle durante la tormenta.</li>
                 <li>Aléjate de árboles, postes y estructuras metálicas.</li>
@@ -61,10 +107,17 @@
         </article>
 
          <article class="item-3">
+<<<<<<< HEAD
             <img src="img/olas-calor.jpg" alt="Descripcion-1" class="img-3">
 
             <div class="contenido-3">
             <p class="clima-3">Olas de Calor</p>
+=======
+  
+
+            <div class="contenido-3">
+            <h3 class="clima-3">Olas de Calor</h3>
+>>>>>>> consumo-api-map
                <ul>
                 <li>Bebe mucha agua, aunque no tengas sed.</li>
                 <li>Evita bebidas alcohólicas o con cafeína.</li>
@@ -77,10 +130,17 @@
         </article>
 
          <article class="item-4">
+<<<<<<< HEAD
             <img src="img/frio-extremo.jpg" alt="Descripcion-1" class="img-4">
 
             <div class="contenido-4">
             <p class="clima-4">Frío Extremo</p>
+=======
+
+
+            <div class="contenido-4">
+            <h3 class="clima-4">Frío Extremo</h3>
+>>>>>>> consumo-api-map
                  <ul>
                 <li>Viste en capas: ropa térmica, bufanda, gorro, guantes.</li>
                 <li>Evita cambios bruscos de temperatura (como salir del calor al frío).</li>
@@ -92,10 +152,17 @@
         </article>
 
          <article class="item-5">
+<<<<<<< HEAD
             <img src="img/tornados.jpg" alt="Descripcion-1"  class="img-5">
 
             <div class="contenido-5">
             <p class="clima-5">Vientos Fuertes</p>
+=======
+  
+
+            <div class="contenido-5">
+            <h3 class="clima-5">Vientos Fuertes</h3>
+>>>>>>> consumo-api-map
                   <ul>
                 <li>Asegura objetos en techos y balcones (macetas, tinacos, láminas).</li>
                 <li>Evita caminar cerca de árboles, espectaculares o postes.</li>
@@ -106,10 +173,17 @@
         </article>
 
          <article class="item-6">
+<<<<<<< HEAD
             <img src="img/lluvias.jpg" alt="Descripcion-1" class="img-6">
 
             <div class="contenido-6">
             <p class="clima-6">Lluvias Intensas</p>
+=======
+
+
+            <div class="contenido-6">
+            <h3 class="clima-6">Lluvias Intensas</h3>
+>>>>>>> consumo-api-map
                    <ul>
                 <li>No cruces calles inundadas, ni a pie ni en auto (aunque parezca poca agua).</li>
                 <li>Evita zonas de cauces, ríos y canales.</li>
@@ -120,7 +194,60 @@
             </div>
         </article>
 
+<<<<<<< HEAD
 
+=======
+          <!-- PIE DE PÁGINA -->
+  <footer>
+    Datos del clima en tiempo real proporcionados por OpenWeatherMap.
+  </footer>
+
+  <!-- Scripts al final para evitar errores -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    // Crear el mapa centrado en México
+    var map = L.map('map').setView([23.6345, -102.5528], 5);
+
+    // Capa base de calles (OpenStreetMap)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Tu clave de OpenWeatherMap (reemplázala por la tuya si cambia)
+    const apiKey = '66f01d21f7c8ae49ead47ae5964e61c4';
+
+    // Capa de nubes en tiempo real (OpenWeatherMap)
+    L.tileLayer(`https://tile.openweathermap.org/map/clouds_new/{z}/{x}/{y}.png?appid=${apiKey}`, {
+      attribution: '© OpenWeatherMap',
+      opacity: 0.6
+    }).addTo(map);
+
+     // Capas climáticas
+  const clouds = L.tileLayer(`https://tile.openweathermap.org/map/clouds_new/{z}/{x}/{y}.png?appid=${apiKey}`, {opacity: 0.7});
+  const temp = L.tileLayer(`https://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=${apiKey}`, {opacity: 0.6});
+  const precip = L.tileLayer(`https://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid=${apiKey}`, {opacity: 0.5});
+  const pressure = L.tileLayer(`https://tile.openweathermap.org/map/pressure_new/{z}/{x}/{y}.png?appid=${apiKey}`, {opacity: 0.5});
+  const wind = L.tileLayer(`https://tile.openweathermap.org/map/wind_new/{z}/{x}/{y}.png?appid=${apiKey}`, {opacity: 0.5});
+  const snow = L.tileLayer(`https://tile.openweathermap.org/map/snow/{z}/{x}/{y}.png?appid=${apiKey}`, {opacity: 0.5});
+
+  // Agrupar en un objeto para el control de capas
+  const overlays = {
+    "☁️ Nubes": clouds,
+    "🌡️ Temperatura": temp,
+    "🌧️ Precipitación": precip,
+    "🌬️ Viento": wind,
+    "❄️ Nieve": snow,
+    "🔵 Presión": pressure
+  };
+
+  // Agregar control de capas
+  L.control.layers(null, overlays).addTo(map);
+
+  // Mostrar por defecto una capa (ej. nubes)
+  clouds.addTo(map);
+
+  </script>
+>>>>>>> consumo-api-map
 
     </section>
 
