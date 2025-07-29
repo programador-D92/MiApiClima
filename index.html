@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-   <link rel="preconnect" href="https://fonts.googleapis.com">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Lobster&family=Michroma&family=Pacifico&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=search" />
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Jost:ital,wght@0,100..900;1,100..900&family=Lobster&family=Michroma&family=Pacifico&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 <!-- Estilos de Leaflet -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link rel="stylesheet" href="estilos.css">
@@ -19,15 +24,40 @@
 
   <!-- CABECERA -->
   <header class="principal">
-    <h1 class="titulo">DíazWeatherNow</h1>
-  </header>
+    <h1 class="titulo">WeatherNow</h1>
+     
+  <main class="buscarclima">
+     <h5 class="consulta">Consulta el clima</h5>   
+ 
+    <section class="busqueda">
+      <input class="input" type="text" id="city-input" placeholder="Ej. Ciudad de México">
+      <button onclick="buscarClima()" class="buscar">Buscar</button>
+      <span class="material-symbols-outlined">search</span>
+    </section>
+
+    <!-- resultado de la busqueda -->
+     <div class="resultado-clima">
+       <div id="resultado" class="resultado">
+       </div>
+     </div>
+
+      <ul class="navigation-list">  <!-- Contenedor Padre / se aplica el display: flex-->
+        <li><a href="#sobre-mi">Sobre mí</a></li>   <!-- hijos de navigation-list-->
+        <li><a href="#habilidades">Habilidades</a></li>
+        <li><a href="#educacion">Educación</a></li>
+        <li><a href="#recomendaciones-utiles">Recomendaciones útiles</a></li>
+     </ul>
+  </main>
+   
+</header>
+
 
   <!-- CONTENEDOR DEL MAPA -->
   <div id="map"></div>
 
     <section class="galery">
-         <section class="sugerenci">
-            <h1 class="name-1">Recomendaciones útiles para situaciones climáticas extremas</h1>
+         <section class="sugerenci" id="recomendaciones-utiles">
+            <h1 class="name-1">Recomendaciones útiles</h1>
         </section>
 
         <article class="acordeon-item-uno">
@@ -50,12 +80,7 @@
          </article>
 
 
-         <article class="item-2">
-            <img src="img/tormentas-electricas.jpg" alt="Descripcion-1" class="img-2">
-
-            <div class="contenido-2">
-            <p class="clima-2">Tormentas Eléctricas</p>
-
+      
   <script>
   function toggleContenido(element) {
     const parent = element.parentElement;
@@ -63,113 +88,42 @@
   }
   </script>
 
-
-         <article class="acordeon-item-dos">
-           
-
-            <div class="contenido-2">
-            <h3 class="clima-2">Tormentas Eléctricas</h3>
-
-              <ul>
-                <li>Evita salir a la calle durante la tormenta.</li>
-                <li>Aléjate de árboles, postes y estructuras metálicas.</li>
-                <li>No uses dispositivos electrónicos conectados a la corriente</li>
-                <li>No te bañes ni uses agua corriente (puede conducir electricidad).</li>
-                <li>Si estás en campo abierto, agáchate en cuclillas, con los pies juntos y la cabeza baja.</li>
-            </ul>
-            </div>
-        </article>
-
-         <article class="item-3">
-
-            <img src="img/olas-calor.jpg" alt="Descripcion-1" class="img-3">
-
-            <div class="contenido-3">
-            <p class="clima-3">Olas de Calor</p>
-
   
+<!-- Consumo API Clima -->
+    <script>
+  async function buscarClima() {
+    const ciudad = document.getElementById('city-input').value;
+    const apiKey = '66f01d21f7c8ae49ead47ae5964e61c4'; // Reemplaza con tu API key
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=${apiKey}&units=metric&lang=es`;
 
-            <div class="contenido-3">
-            <h3 class="clima-3">Olas de Calor</h3>
+    try {
+      const respuesta = await fetch(url);
+      if (!respuesta.ok) {
+        throw new Error('Ciudad no encontrada');
+      }
 
-               <ul>
-                <li>Bebe mucha agua, aunque no tengas sed.</li>
-                <li>Evita bebidas alcohólicas o con cafeína.</li>
-                <li>Usa ropa ligera y de colores claros.</li>
-                <li>No te expongas al sol entre las 11 a.m. y las 4 p.m.</li>
-                <li>No dejes personas o mascotas dentro del auto.</li>
-                <li>Permanece en lugares frescos y bien ventilados.</li>
-            </ul>
-            </div>
-        </article>
+      const datos = await respuesta.json();
 
-         <article class="item-4">
+      const climaHTML = `
+        <h3>Clima en ${datos.name}</h3>
+        <p>Temperatura: ${datos.main.temp} °C</p>
+        <p>Condición: ${datos.weather[0].description}</p>
+        <p>Humedad: ${datos.main.humidity}%</p>
+        <p>Viento: ${datos.wind.speed} m/s</p>
+      `;
 
-            <img src="img/frio-extremo.jpg" alt="Descripcion-1" class="img-4">
+      document.getElementById('resultado').innerHTML = climaHTML;
 
-            <div class="contenido-4">
-            <p class="clima-4">Frío Extremo</p>
-
-
-
-            <div class="contenido-4">
-            <h3 class="clima-4">Frío Extremo</h3>
-
-                 <ul>
-                <li>Viste en capas: ropa térmica, bufanda, gorro, guantes.</li>
-                <li>Evita cambios bruscos de temperatura (como salir del calor al frío).</li>
-                <li>Asegúrate de que calefactores estén bien ventilados (riesgo de monóxido).</li>
-                <li>No uses anafres o braseros dentro de la casa.</li>
-                <li>Mantén especial cuidado con bebés, adultos mayores y personas con enfermedades respiratorias.</li>
-            </ul>
-            </div>
-        </article>
-
-         <article class="item-5">
-
-            <img src="img/tornados.jpg" alt="Descripcion-1"  class="img-5">
-
-            <div class="contenido-5">
-            <p class="clima-5">Vientos Fuertes</p>
-
-
-            <div class="contenido-5">
-            <h3 class="clima-5">Vientos Fuertes</h3>
-
-                  <ul>
-                <li>Asegura objetos en techos y balcones (macetas, tinacos, láminas).</li>
-                <li>Evita caminar cerca de árboles, espectaculares o postes.</li>
-                <li>Maneja con precaución si estás en carretera.</li>
-                <li>Cierra puertas y ventanas con firmeza.</li>
-            </ul>
-            </div>
-        </article>
-
-         <article class="item-6">
-
-            <img src="img/lluvias.jpg" alt="Descripcion-1" class="img-6">
-
-            <div class="contenido-6">
-            <p class="clima-6">Lluvias Intensas</p>
-
-
-
-            <div class="contenido-6">
-            <h3 class="clima-6">Lluvias Intensas</h3>
-
-                   <ul>
-                <li>No cruces calles inundadas, ni a pie ni en auto (aunque parezca poca agua).</li>
-                <li>Evita zonas de cauces, ríos y canales.</li>
-                <li>Desconecta aparatos eléctricos si hay riesgo de inundación en casa.</li>
-                <li>No toques postes o cables eléctricos caídos.</li>
-                <li>Guarda documentos en bolsas de plástico.</li>
-            </ul>
-            </div>
-        </article>
+    } catch (error) {
+      document.getElementById('resultado').innerHTML = `<p>Error: ${error.message}</p>`;
+    }
+  }
+</script>
 
 
 
 
+<!-- Consumo API mapa -->
           <!-- PIE DE PÁGINA -->
   <footer>
     Datos del clima en tiempo real proporcionados por OpenWeatherMap.

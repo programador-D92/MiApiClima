@@ -2,103 +2,142 @@
 :root{
   --color-principal: #254F67;
   --color-contenedores: #151515;
+  --color-texto:  aliceblue;
+}
+* {
+  box-sizing: border-box;
 }
 
+/* estilos.css scroll suabe */
+html {
+  scroll-behavior: smooth;
+}
+
+
+/* cabecera */
 .principal{
     display: flex;
-    font-family: 'Lobster', cursive;
-    font-weight: 400;
-    font-size: 2rem;
-    justify-content: center;
-    background-color: white;
-    max-width: 100rem;
-    height: 12rem;
-    color: var(--color-principal);
-}
-/* sugerenci */
-
-.sugeerencci{
-    display: flex;
-}
-
-.name-1{
-    font-size: 2rem;
-    text-align: center;
-    color: #2E495C;
-}
-.cabecera{
-    padding: 0;
-    margin: 0;
-    width: 100%;
-}
-
-.img-principal{
-    width: 100%;
-    height: 35rem;
-}
-
-/*estilo en contenedores de imagenes */
-.item-1{
-    display: flex;
-}
-
-.contenido-1{
-    display: flex;
     flex-direction: column;
+    font-weight: 400;
+    justify-content: center;
+    background-color: #2980b9;
+    width: 100%;
+    height: auto;
+    overflow-x: hidden; /* evita desbordes horizontales */
 }
 
+/* contenedor titulo */
+    .titulo {
+    color: white;
+    text-align: start;
+    height: 4rem;
+    width: 100%;
+    margin: 1rem 0 0 2rem;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 2rem;
+    }
 
-* { /* se recomienda colocar al inio de cada proyecto para no permitir espaciados no deseados  */
+    .consulta{
+      display: flex;
+      justify-content: center;
+      color: white;
+      font-size: 2.5rem;
+      margin: 2rem 0 0 0;
+      font-family: 'Roboto Condensed', sans-serif;
+      font-weight: 400;
+    }
+
+    /* item padre del contenido interno de buscarclima */
+    .buscarclima{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .busqueda{
+      display: flex;
+      justify-content: center;
+    }
+
+    .input{
+      height: 2rem;
+      margin: 2rem 0 0 1rem;
+      width: 20rem;
+    }
+
+    .buscar{
+      height: 2rem;
+      margin: 2rem 0 0 0;
+      cursor: pointer;
+      width: 4rem;
+    }
+
+    /* estilo de resultado de la API */
+    .resultado-clima{
+      display: flex;
+      justify-content: center;
+      margin-top: 1.5rem;
+      height: auto;
+    }
+
+    .resultado{
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      color: white;
+      font-family: 'Roboto Condensed', sans-serif;
+      font-size: 1.3rem;
+
+    }
+
+
+    .buscar:hover{
+      background-color: #CDA81C;
+      color: var(--color-texto)
+    }
+
+      /* termina item padre del contenido interno de buscarclima */
+
+    /* lista de navegacion */
+    .navigation-list{
+      display: flex;
+      margin: 2rem 0 0 3rem;
+      list-style: none;
+    }
+
+    .navigation-list a{
+      margin-left: 1rem;
+      text-decoration: none;
+      color: var(--color-texto);
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .navigation-list a:hover{
+      text-decoration: underline;
+      color: #CDA81C;
+    }
+
+    /* icono search */
+    .material-symbols-outlined{
+      margin: 2.3rem 0 0 -6rem;
+      color:  #2980b9;
+    }
+
+/* se recomienda colocar al inio de cada proyecto para no permitir espaciados no deseados  */
+* { 
   margin: 0;
-
 }
-
-/* Estilos del mapa */
 
   body {
-      font-family: 'Fira Sans', sans-serif;
+
       margin: 0;
       padding: 0;
     }
 
-    .principal{
-    display: flex;
-    background-color: #2980b9;
-    flex-direction: column;
-    }
 
-    .titulo {
-    color: white;
-    padding: 1em;  
-    display: flex;               /* propiedad display*/
-    justify-content: start;   /* Centrado horizontal */
-    align-items: center;       /* Centrado vertical */
-    height: 4rem;
-    width: 100%;
-    margin-left: 3rem;
-    }
-
-
-    h1 {
-      margin: 0;
-      font-size: 1.8rem;
-    }
-
-    #map {
-      height: 40rem;
-      width: 100%;
-    }
-
-    footer {
-      text-align: center;
-      padding: 1em;
-      background-color: #ecf0f1;
-      font-size: 0.9em;
-    }
-
- /* termina estilos del mapa */
-
-/* estilos */
+/* texto recomendaciones */
 
 .name-1{
     font-size: 2rem;
@@ -111,153 +150,26 @@
 }
 
 
+ /* estilos del mapa */
+    #map {
+      height: 35rem;
+      width: 100%;
+    }
 
-
-/*estilos acordeon-item-uno*/
-
-.recomemdacion-item-uno{
-    display: none;
-    margin-top: 4rem;
-}
-
-.acordeon-item-uno.open .recomemdacion-item-uno{
-    display: block;
-}
-
-.arrow{
-    transition: transform 0.3s ease;
-    cursor: pointer;
-}
-
-.acordeon-item-uno.open .arrow{
-    transform: rotate(90deg);
-}
-
-
-
-/*estilo en imagen 2 y texto 2 */
-
-
-
-.item-2{
-    display: flex;
-    justify-content: end;
-    flex-direction: row-reverse;
-
-}
-
-
-.img-2{
-    width: 45rem;
-    height: 25rem;   
-    cursor: pointer;
-    position: relative;
-    z-index: 2;
-    border: 0.2324rem solid #08090F;
-}
+    footer {
+      text-align: center;
+      padding: 1em;
+      background-color: #ecf0f1;
+      font-size: 0.9em;
+    }
 
 
 
 
-/*estilo en imagen 3 y texto 3 */
-
-
-
-.item-3{
-    display: flex;
-}
-
-.item-4{
-    display: flex;
-    justify-content: end;
-    flex-direction: row-reverse;
-}
-
-.item-5{
-    display: flex;
-}
-
-.item-6{
-    display: flex;
-    justify-content: end;
-    flex-direction: row-reverse;
-}
-
-/* estilo en imagenes */
-
-.img-1{
-    width: 35rem;
-    height: 25rem;
-    margin: 2rem 0 0 2rem;
-}
-
-.img-2{
-    width: 35rem;
-    height: 25rem;
-    margin: 4rem 2rem 0 2rem;
-}
 
 
 
 
-/* efectos de deslazamiento */
 
 
 
-.img-3{
-    width: 35rem;
-    height: 25rem;
-    margin: 2rem 0 0 2rem;
-}
-
-.img-4{
-    width: 35rem;
-    height: 25rem;
-
-    margin: 2rem 2rem 0 2rem;
-
-    margin: 2rem 0 0 2rem;
-
-}
-
-.img-5{
-    width: 35rem;
-    height: 25rem;
-    margin: 2rem 0 0 2rem;
-}
-
-.img-6{
-    width: 35rem;
-    height: 25rem;
-
-    margin: 2rem 2rem 2rem 0;
-
-    margin: 2rem 0 0 2rem;
-
-}
-
-
-/* estilo en texto de imagenes */
-.clima-1{
-    margin: 2rem 0 0 2rem;
-}
-
-.clima-2{
-    margin: 4rem 0 0 2rem;
-}
-
-.clima-3{
-    margin: 2rem 0 0 2rem;
-}
-
-.clima-4{
-    margin: 2rem 0 0 2rem;
-}
-
-.clima-5{
-    margin: 2rem 0 0 2rem;
-}
-
-.clima-6{
-    margin: 2rem 2rem 0 0;
-}
