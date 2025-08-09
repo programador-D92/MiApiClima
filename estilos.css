@@ -13,26 +13,43 @@ html {
   scroll-behavior: smooth;
 }
 
-
 /* cabecera */
+.cabecera{
+    position: fixed;
+    z-index: 1000;
+    width: 100%;
+    height: 8rem;
+    background-color:  #4993C3;
+}
+
+.navigation-list{
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  height: 2rem;
+}
+
 .principal{
     display: flex;
     flex-direction: column;
     font-weight: 400;
     justify-content: center;
-    background-color: #2980b9;
+    background-color:  #4993C3;
     width: 100%;
     height: auto;
     overflow-x: hidden; /* evita desbordes horizontales */
+    padding-top: 8rem;
 }
 
 /* contenedor titulo */
     .titulo {
+    display: flex;
+    justify-content: start;
+    align-items: center; 
     color: white;
-    text-align: start;
     height: 4rem;
     width: 100%;
-    margin: 1rem 0 0 2rem;
+    margin: 2rem 0 0 5rem;
     font-family: 'Roboto Condensed', sans-serif;
     font-size: 2rem;
     }
@@ -88,9 +105,9 @@ html {
       color: white;
       font-family: 'Roboto Condensed', sans-serif;
       font-size: 1.3rem;
+      margin-bottom: 2rem;
 
     }
-
 
     .buscar:hover{
       background-color: #CDA81C;
@@ -100,12 +117,6 @@ html {
       /* termina item padre del contenido interno de buscarclima */
 
     /* lista de navegacion */
-    .navigation-list{
-      display: flex;
-      margin: 2rem 0 0 3rem;
-      list-style: none;
-    }
-
     .navigation-list a{
       margin-left: 1rem;
       text-decoration: none;
@@ -125,6 +136,75 @@ html {
       color:  #2980b9;
     }
 
+    .mensaje-flotante{
+      margin: 2.7rem 0 0 5rem;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .mensaje-flotante:hover{
+       transform: scale(1.3); /* crece un 30% */
+    }
+
+
+    /* estilos de primera seccion de recomendaciones */
+   .arrow {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 8px;
+  cursor: pointer;
+  transition: transform 0.6s ease; /* transición suave */
+  margin: 10px 0;
+}
+
+/* Inicialmente hacia la derecha */
+.arrow.right {
+  transform: rotate(-45deg);
+}
+
+/* Cuando esté activa, apunta hacia abajo */
+.arrow.down {
+  transform: rotate(45deg);
+}
+
+/* Contenedor con animación de deslizamiento */
+.recomendacion-item-uno {
+  max-height: 0;
+  overflow: hidden;
+  background: #f0f0f0;
+  padding: 0 15px;
+  border-radius: 8px;
+  font-family: Arial, sans-serif;
+  transition: max-height 0.8s ease, padding 0.8s ease, margin-top 0.8s ease;
+}
+
+/* Cuando se muestre */
+.recomendacion-item-uno.show {
+  max-height: 500px;
+  padding: 15px;
+  margin-top: 10px;
+}
+
+.title-container{
+  display: flex;
+  background-color: #DEEFE7;
+  padding: 0 0 0 2rem;
+  gap: 0.5rem;
+}
+
+
+.recomendacion-item-uno{
+  background-color: #D9D9D9;
+  font-family: 'Nunito Sans', sans-serif;
+}
+
+
+.recomendacion-huracan{
+  font-family: 'Roboto Condensed', sans-serif;
+  height: 0.2rem;
+}
+
 /* se recomienda colocar al inio de cada proyecto para no permitir espaciados no deseados  */
 * { 
   margin: 0;
@@ -143,13 +223,26 @@ html {
     font-size: 2rem;
     display: flex;
     justify-content: center;
-    align-items: center;
     color: black;
-    margin-top: 0;
-    padding: 2rem 0 2rem 0;
+    margin: 1rem 0 1rem 0;
+    font-family: 'Roboto Condensed', sans-serif;
+  
+}
+
+.name-2{
+  display: flex;
+  justify-content: center;
+  margin:1rem 0 1rem 0;
+  font-family: 'Roboto Condensed', sans-serif;
 }
 
 
+.name-3{
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0 1rem 0;
+  font-family: 'Roboto Condensed', sans-serif;
+}
  /* estilos del mapa */
     #map {
       height: 35rem;
@@ -162,6 +255,7 @@ html {
       background-color: #ecf0f1;
       font-size: 0.9em;
     }
+
 
 
 

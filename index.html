@@ -13,6 +13,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Jost:ital,wght@0,100..900;1,100..900&family=Lobster&family=Michroma&family=Pacifico&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=search" />
 <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Jost:ital,wght@0,100..900;1,100..900&family=Lobster&family=Michroma&family=Pacifico&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 <!-- Estilos de Leaflet -->
@@ -23,9 +26,19 @@
 <body>
 
   <!-- CABECERA -->
-  <header class="principal">
-    <h1 class="titulo">WeatherNow</h1>
-     
+   <header class="cabecera">
+        <h1 class="titulo">WeatherNow</h1>
+
+    <ul class="navigation-list">  <!-- Contenedor Padre / se aplica el display: flex-->
+        <li><a href="#sobre-mi">Sobre mí</a></li>   <!-- hijos de navigation-list-->
+        <li><a href="#habilidades">Habilidades</a></li>
+        <li><a href="#fenomenos-geologicos">Fenómenos Geológicos</a></li>
+        <li><a href="#fenomenos-meteorologicos">Fenómenos Meteorológicos</a></li>
+    </ul>
+   </header>
+
+
+  <section class="principal">     
   <main class="buscarclima">
      <h5 class="consulta">Consulta el clima</h5>   
  
@@ -33,6 +46,7 @@
       <input class="input" type="text" id="city-input" placeholder="Ej. Ciudad de México">
       <button onclick="buscarClima()" class="buscar">Buscar</button>
       <span class="material-symbols-outlined">search</span>
+      <span title="Formato: Ciudad, Estado (ej. Zapopan, Jalisco o Nueva York, US)" class="mensaje-flotante">ℹ️</span>
     </section>
 
     <!-- resultado de la busqueda -->
@@ -40,87 +54,455 @@
        <div id="resultado" class="resultado">
        </div>
      </div>
+  </main> 
+</section>
+ 
+<!-- Inicia evento de teclado Enter para ejecutar búsqueda  -->
+<script>
+  const input = document.getElementById("city-input");
+  // escucha cuando se presiona una tecla
+  input.addEventListener("keypress", function (event){
+    if (event.key === "Enter"){ //verifica si es enter
+      event.preventDefault();  // evita que se recargue la pagina
+      buscarClima();
+    }
+  })
 
-      <ul class="navigation-list">  <!-- Contenedor Padre / se aplica el display: flex-->
-        <li><a href="#sobre-mi">Sobre mí</a></li>   <!-- hijos de navigation-list-->
-        <li><a href="#habilidades">Habilidades</a></li>
-        <li><a href="#educacion">Educación</a></li>
-        <li><a href="#recomendaciones-utiles">Recomendaciones útiles</a></li>
-     </ul>
-  </main>
-   
-</header>
+  function buscarClima(){
+    const ciudad = input.value.trim();
+    if (ciudad !== ""){
+      console.log("Buscando clima de: ", ciudad);
+       // Aquí llamas a tu función que consulta la API de clima
+    }
+  }
+</script>
+<!-- Fin de evento de teclado Enter para ejecutar búsqueda  -->
 
 
   <!-- CONTENEDOR DEL MAPA -->
   <div id="map"></div>
 
-    <section class="galery">
-         <section class="sugerenci" id="recomendaciones-utiles">
+
+  <!-- Primera etapa de recomendaciones -->
+  <section class="suggestions-section-one">
+        <section class="name-suggestions-one" id="fenomenos-meteorologicos">
             <h1 class="name-1">Recomendaciones útiles</h1>
+            <h2 class="name-2">Fenómenos meteorológicos</h2>
         </section>
 
-        <article class="acordeon-item-uno">
-                <div class="contenido-uno" onclick="toggleContenido(this)">
-                 <h3 class="titulo-huracanes">Huracanes</h3>
-                  <span class="arrow">▶</span>
-            </div>
+    <!--Primera seccion de Recomendaciones -->
+    <section class="first-section">
+  <div class="title-container">
+    <h2 class="recomendacion-huracan">Recomendaciones en caso de huracán</h2>
+           <!-- Flecha -->
+          <i class="arrow right toggleArrow"></i>
+  </div>
+    <!-- Contenido oculto -->
+<div class="recomendacion-item-uno infoBox">
+  <ul>
+    <li>Mantente informado con fuentes oficiales (Conagua, Protección Civil).</li>
+    <li>Cubre ventanas con madera o cinta adhesiva en forma de X.</li>
+    <li>Almacena agua potable y alimentos no perecederos.</li>
+    <li>Ten un botiquín de primeros auxilios y documentos importantes a la mano.</li>
+    <li>Desconecta aparatos eléctricos.</li>
+    <li>No salgas durante el paso del huracán, incluso si parece haber calma.</li>
+  </ul>
+</div>
+    </section>
+    <hr>
+    <!--Fin de primera seccion de Recomendaciones -->
 
-            <div class="recomemdacion-item-uno">
-              <ul>
+    <!--Segunda seccion de Recomendaciones -->
+    <section class="first-section">
+  <div class="title-container">
+    <h2 class="recomendacion-huracan">Inundaciones y lluvias intensas</h2>
+           <!-- Flecha -->
+          <i class="arrow right toggleArrow"></i>
+  </div>
+    <!-- Contenido oculto -->
+<div class="recomendacion-item-uno infoBox">
+  <ul>
+    <li>Mantente informado a través de medios oficiales como CONAGUA, Protección Civil o estaciones locales..</li>
+    <li>No intentes cruzar calles inundadas a pie o en vehículo.</li>
+    <li>Almacena agua potable y alimentos no perecederos.</li>
+    <li>Revisa el estado de techos, bajadas de agua y coladeras en casa..</li>
+    <li>No arrojes basura en la calle o drenaje; contribuye a evitar taponamientos.</li>
+    <li>Aléjate de ríos, arroyos o canales con aumento de nivel.</li>
+  </ul>
+</div>
+    </section>
+    <hr>
+    <!--Fin de segunda seccion de Recomendaciones -->
 
-                <li>Mantente informado con fuentes oficiales (Conagua, Protección Civil).</li>
-                <li>Cubre ventanas con madera o cinta adhesiva en forma de X.</li>
-                <li>Almacena agua potable y alimentos no perecederos.</li>
-                <li>Ten un botiquín de primeros auxilios y documentos importantes a la mano.</li>
-                <li>Desconecta aparatos eléctricos.</li>
-                <li>No salgas durante el paso del huracán, incluso si parece haber calma.</li>
-            </ul>
-            </div>
-         </article>
+    <!--Tercera seccion de Recomendaciones -->
+    <section class="first-section">
+  <div class="title-container">
+    <h2 class="recomendacion-huracan">Ondas de calor y altas temperauras</h2>
+           <!-- Flecha -->
+          <i class="arrow right toggleArrow"></i>
+  </div>
+    <!-- Contenido oculto -->
+<div class="recomendacion-item-uno infoBox">
+  <ul>
+    <li>Mantente hidratado: bebe agua frecuentemente, aunque no tengas sed.</li>
+    <li>Evita exponerte al sol entre las 11:00 a.m. y 4:00 p.m.</li>
+    <li>Usa ropa ligera, de colores claros y con telas frescas (algodón, lino).</li>
+    <li>Aplica bloqueador solar (FPS 30 mínimo) si necesitas salir.</li>
+    <li>Permanece en lugares frescos, ventilados o con sombra.</li>
+    <li>Nunca dejes a personas o mascotas dentro de un vehículo cerrado.</li>
+  </ul>
+</div>
+    </section>
+    <hr>
+    <!--Fin de tercera seccion de Recomendaciones -->
+
+    <!--Cuarta seccion de Recomendaciones -->
+    <section class="first-section">
+  <div class="title-container">
+    <h2 class="recomendacion-huracan">Frentes frios y heladas</h2>
+           <!-- Flecha -->
+          <i class="arrow right toggleArrow"></i>
+  </div>
+    <!-- Contenido oculto -->
+<div class="recomendacion-item-uno infoBox">
+  <ul>
+    <li>Viste con ropa abrigadora en capas: usa gorros, bufandas, guantes y calcetas gruesas.</li>
+    <li>Si usas calentadores de gas o carbón, asegúrate de tener ventilación adecuada para evitar intoxicaciones.</li>
+    <li>Protege a niños, adultos mayores y personas enfermas, ya que son más vulnerables al frío.</li>
+    <li>Bebe líquidos calientes y consume alimentos ricos en calorías y vitaminas.</li>
+    <li>Cubre y protege tuberías, plantas y animales del frío intenso.</li>
+    <li>Sigue las recomendaciones de Protección Civil y medios oficiales.</li>
+  </ul>
+</div>
+    </section>
+    <hr>
+    <!--Fin de cuarta seccion de Recomendaciones -->
+
+    <!--Quinta seccion de Recomendaciones -->
+    <section class="first-section">
+  <div class="title-container">
+    <h2 class="recomendacion-huracan">Nevadas y tormentas invernales</h2>
+           <!-- Flecha -->
+          <i class="arrow right toggleArrow"></i>
+  </div>
+    <!-- Contenido oculto -->
+<div class="recomendacion-item-uno infoBox">
+  <ul>
+    <li>Permanece en casa y evita salir si no es estrictamente necesario.</li>
+    <li>Viste en capas con ropa térmica, impermeable, gorro, guantes, bufanda y calzado antideslizante.</li>
+    <li>Mantén encendidos los sistemas de calefacción con ventilación adecuada para evitar intoxicaciones.</li>
+    <li>Si sales, evita caminar o conducir por zonas con hielo, nieve o visibilidad reducida.</li>
+    <li>Almacena agua y alimentos por si quedas incomunicado durante la tormenta.</li>
+    <li>Evita el uso de estufas o anafres en lugares sin ventilación.</li>
+  </ul>
+</div>
+    </section>
+    <hr>
+    <!--Fin de quinta seccion de Recomendaciones -->
+
+    <!--Sexta seccion de Recomendaciones -->
+    <section class="first-section">
+  <div class="title-container">
+    <h2 class="recomendacion-huracan">Sequias</h2>
+           <!-- Flecha -->
+          <i class="arrow right toggleArrow"></i>
+  </div>
+    <!-- Contenido oculto -->
+<div class="recomendacion-item-uno infoBox">
+  <ul>
+    <li>Usa la lavadora y el lavavajillas sólo con cargas completas.</li>
+    <li>Riega plantas o jardines por la noche o muy temprano para evitar evaporación.</li>
+    <li>Evita desperdiciar agua en actividades no esenciales (como llenar albercas o fuentes).</li>
+    <li>Si vives en zona rural, almacena agua de lluvia cuando sea posible y segura.</li>
+    <li>Usa cubetas en lugar de mangueras para lavar autos, banquetas o exteriores.</li>
+    <li>Comparte y promueve el uso responsable del agua con tu familia y comunidad.</li>
+  </ul>
+</div>
+    </section>
+    <hr>
+    <!--Fin de sexta seccion de Recomendaciones -->
+
+    <!--Septima seccion de Recomendaciones -->
+    <section class="first-section">
+  <div class="title-container">
+    <h2 class="recomendacion-huracan">Tornados</h2>
+           <!-- Flecha -->
+          <i class="arrow right toggleArrow"></i>
+  </div>
+    <!-- Contenido oculto -->
+<div class="recomendacion-item-uno infoBox">
+  <ul>
+    <li>Cúbrete con un colchón, cobijas o ropa pesada para protegerte de escombros.</li>
+    <li>No busques refugio debajo de puentes o pasos elevados.</li>
+    <li>No intentes huir en el auto si el tornado está cerca.</li>
+    <li>Evita líneas eléctricas caídas y estructuras dañadas.</li>
+    <li>No enciendas cerillos o encendedores si hay olor a gas.</li>
+    <li>Escucha instrucciones oficiales antes de salir del refugio.</li>
+  </ul>
+</div>
+    </section>
+    <hr>
+    <!--Fin de septima seccion de Recomendaciones -->
+   
+    <!--Octava seccion de Recomendaciones -->
+    <section class="first-section">
+  <div class="title-container">
+    <h2 class="recomendacion-huracan">Granizadas</h2>
+           <!-- Flecha -->
+          <i class="arrow right toggleArrow"></i>
+  </div>
+    <!-- Contenido oculto -->
+<div class="recomendacion-item-uno infoBox">
+  <ul>
+    <li>Permanece bajo techo mientras dure la granizada; evita salir a la calle.</li>
+    <li>Si estás en la calle y no puedes resguardarte, protege tu cabeza con lo que tengas a la mano (mochila, bolsa, abrigo).</li>
+    <li>Aléjate de ventanas, tragaluces o estructuras de vidrio que puedan romperse.</li>
+    <li>Desconecta aparatos electrónicos si hay descargas eléctricas o posibilidad de corte de energía.</li>
+    <li>Evita estar cerca de árboles o postes, ya que pueden caer por el peso del granizo.</li>
+    <li>No busques refugio bajo estructuras frágiles como techos de lámina o carpas.</li>
+  </ul>
+</div>
+    </section>
+    <hr>
+     <!--Fin de octava seccion de Recomendaciones -->
+</section>
+  
 
 
-      
-  <script>
-  function toggleContenido(element) {
-    const parent = element.parentElement;
-    parent.classList.toggle('open');
-  }
-  </script>
+   <!-- Segunda etapa de recomendaciones -->
+
+<section class="suggestions-section-two">
+    <section class="name-suggestions-two" id="fenomenos-geologicos">
+            <h2 class="name-3">Fenómenos geológicos</h2>
+    </section>
+
+    <!--Primera seccion de recomendaciones fenomenos geologicos-->
+    <section class="first-section">
+  <div class="title-container">
+    <h2 class="recomendacion-huracan">Sismos y terremotos</h2>
+           <!-- Flecha -->
+          <i class="arrow right toggleArrow"></i>
+  </div>
+    <!-- Contenido oculto -->
+<div class="recomendacion-item-uno infoBox">
+  <ul>
+    <li>Identifica zonas seguras dentro y fuera de tu casa, escuela o lugar de trabajo.</li>
+    <li>Mantén la calma y evita correr o empujar.</li>
+    <li>Aléjate de ventanas, espejos y objetos que puedan caer.</li>
+    <li>Si estás en la calle, aléjate de postes, cables eléctricos y fachadas.</li>
+    <li>Si manejas, detén el vehículo en un lugar seguro y permanece dentro hasta que termine el movimiento.</li>
+    <li>Participa en simulacros para practicar cómo actuar.</li>
+  </ul>
+</div>
+    </section>
+    <hr>
+    <!--Fin de primera seccion de Recomendaciones -->
+
+    <!--Segunda seccion de recomendaciones fenomenos geologicos-->
+    <section class="first-section">
+  <div class="title-container">
+    <h2 class="recomendacion-huracan">Erupciones volcánicas</h2>
+           <!-- Flecha -->
+          <i class="arrow right toggleArrow"></i>
+  </div>
+    <!-- Contenido oculto -->
+<div class="recomendacion-item-uno infoBox">
+  <ul>
+    <li>Sigue las indicaciones de las autoridades y evacúa si así lo ordenan.</li>
+    <li>Usa mascarilla o un paño húmedo para cubrir nariz y boca, evitando inhalar ceniza.</li>
+    <li>Protege tus ojos con gafas cerradas y tu piel con ropa que cubra brazos y piernas.</li>
+    <li>Permanece en interiores con puertas y ventanas cerradas.</li>
+    <li>No conduzcas a menos que sea estrictamente necesario, la ceniza reduce la visibilidad y daña los motores.</li>
+    <li>Protege depósitos de agua para evitar que se contaminen con ceniza.</li>
+  </ul>
+</div>
+    </section>
+    <hr>
+</section>
+
+    <!-- trecera seccion de recomendaciones fenomenos geologicos-->
+ <section class="first-section">
+  <div class="title-container">
+    <h2 class="recomendacion-huracan">Tsunamis</h2>
+           <!-- Flecha -->
+          <i class="arrow right toggleArrow"></i>
+  </div>
+    <!-- Contenido oculto -->
+<div class="recomendacion-item-uno infoBox">
+  <ul>
+    <li>Infórmate si vives o trabajas en una zona de riesgo costero.</li>
+    <li>Identifica rutas de evacuación hacia zonas elevadas y seguras.</li>
+    <li>Participa en simulacros y establece un plan familiar de emergencia.</li>
+    <li>Mantén lista una mochila con agua, alimentos no perecederos, radio, linterna y botiquín.</li>
+    <li>No te acerques a la playa a observar el fenómeno, es extremadamente peligroso.</li>
+    <li>Brinda ayuda a heridos y personas vulnerables.</li>
+
+    </li>
+  </ul>
+</div>
+    </section>
+    <hr>
+</section>
+
+
+<!-- Seccion general -->
+
+<section class="suggestions-section-two">
+    <section class="name-suggestions-two" id="fenomenos-geologicos">
+            <h2 class="name-3"> Sección general</h2>
+    </section>
+
+    <!--Primera seccion de recomendaciones fenomenos geologicos-->
+    <section class="first-section">
+  <div class="title-container">
+    <h2 class="recomendacion-huracan">¿Cómo preparar un kit de emergencia familiar?</h2>
+           <!-- Flecha -->
+          <i class="arrow right toggleArrow"></i>
+  </div>
+    <!-- Contenido oculto -->
+<div class="recomendacion-item-uno infoBox">
+  <ul>
+    <li>Linterna con pilas extra o recargable.</li>
+    <li>Vendas, gasas estériles y cinta médica.</li>
+    <li>Analgésicos y medicamentos recetados.</li>
+    <li>Lista de teléfonos de emergencia.</li>
+    <li>Antisépticos y alcohol.</li>
+    <li>Cobijas o mantas térmicas.</li>
+  </ul>
+</div>
+    </section>
+    <hr>
+    <!--Fin de primera seccion de Recomendaciones -->
+
+    <!--Segunda seccion de recomendaciones fenomenos geologicos-->
+    <section class="first-section">
+  <div class="title-container">
+    <h2 class="recomendacion-huracan">¿Cómo actuar si quedas incomunicado?</h2>
+           <!-- Flecha -->
+          <i class="arrow right toggleArrow"></i>
+  </div>
+    <!-- Contenido oculto -->
+<div class="recomendacion-item-uno infoBox">
+  <ul>
+    <li>Mantén la calma y evalúa tu entorno para identificar posibles peligros.</li>
+    <li>Usa mensajes de texto en lugar de llamadas, ya que consumen menos red.</li>
+    <li>Ten siempre contigo una tarjeta con contactos de emergencia.</li>
+    <li>Acuerda con tu familia un punto de reunión seguro en caso de perder contacto.</li>
+    <li>Informa a tus familiares o amigos tu ubicación y estado de salud.</li>
+    <li>Sigue las instrucciones de Protección Civil o autoridades competentes.</li>
+  </ul>
+</div>
+    </section>
+    <hr>
+</section>
+
+    <!-- trecera seccion de recomendaciones fenomenos geologicos-->
+ <section class="first-section">
+  <div class="title-container">
+    <h2 class="recomendacion-huracan">Recomendaciones para mascotas en emergencias</h2>
+           <!-- Flecha -->
+          <i class="arrow right toggleArrow"></i>
+  </div>
+    <!-- Contenido oculto -->
+<div class="recomendacion-item-uno infoBox">
+  <ul>
+    <li>Transportadora o jaula segura.</li>
+    <li>Nunca la dejes amarrada o encerrada sin supervisión.</li>
+    <li>Evita exponerla a zonas peligrosas, escombros o agua contaminada.</li>
+    <li>Incluye una foto reciente para ayudar en caso de extravío.</li>
+    <li>Bolsas para desechos y artículos de limpieza.</li>
+    <li>Alimento y agua para al menos 3 días.</li>
+
+    </li>
+  </ul>
+</div>
+    </section>
+    <hr>
+</section>
+
+  <!--script de seccion de Recomendaciones -->
+<script>
+  document.querySelectorAll(".toggleArrow").forEach((arrow, index) =>{
+  const infoBox = document.querySelectorAll(".infoBox")[index];
+
+  arrow.addEventListener("click", () => {
+    arrow.classList.toggle("down");
+    arrow.classList.toggle("right");
+    infoBox.classList.toggle("show");
+  });
+  });
+</script>
+   <!--Fin de script de seccion de Recomendaciones -->
+
 
   
 <!-- Consumo API Clima -->
-    <script>
-  async function buscarClima() {
-    const ciudad = document.getElementById('city-input').value;
-    const apiKey = '66f01d21f7c8ae49ead47ae5964e61c4'; // Reemplaza con tu API key
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=${apiKey}&units=metric&lang=es`;
 
-    try {
-      const respuesta = await fetch(url);
-      if (!respuesta.ok) {
-        throw new Error('Ciudad no encontrada');
-      }
+  <script>
+async function buscarClima() {
+  const ciudad = document.getElementById("city-input").value.trim();
+  const resultado = document.getElementById("resultado");
+  const apiKey = '66f01d21f7c8ae49ead47ae5964e61c4';
 
-      const datos = await respuesta.json();
+  if (!ciudad) return;
 
-      const climaHTML = `
-        <h3>Clima en ${datos.name}</h3>
-        <p>Temperatura: ${datos.main.temp} °C</p>
-        <p>Condición: ${datos.weather[0].description}</p>
-        <p>Humedad: ${datos.main.humidity}%</p>
-        <p>Viento: ${datos.wind.speed} m/s</p>
-      `;
+  resultado.innerHTML = `<p>🔎 Buscando clima para "${ciudad}"... ⏳</p>`;
 
-      document.getElementById('resultado').innerHTML = climaHTML;
+  try {
+    let geoData = [];
+    let queryMX = `${ciudad},MX`;
+    
 
-    } catch (error) {
-      document.getElementById('resultado').innerHTML = `<p>Error: ${error.message}</p>`;
+    // Intentar primero en México
+    let geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(queryMX)}&limit=1&appid=${apiKey}`;
+    let geoRes = await fetch(geoUrl);
+    geoData = await geoRes.json();
+
+    // Si no hay resultados o el usuario escribió un lugar famoso sin país,
+    // hacer una búsqueda global para dar mejor precisión
+    if (
+      geoData.length === 0 || 
+      (geoData[0].country === "MX" && !ciudad.includes(",")) 
+    ) {
+      geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(ciudad)}&limit=3&appid=${apiKey}`;
+      geoRes = await fetch(geoUrl);
+      geoData = await geoRes.json();
     }
+
+    if (geoData.length === 0) {
+      throw new Error("Localidad no encontrada");
+    }
+
+    // Usar el primer resultado global
+    const { lat, lon, name, state, country } = geoData[0];
+
+    // Obtener clima
+    const climaUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=es`;
+    const climaRes = await fetch(climaUrl);
+
+    if (!climaRes.ok) throw new Error("No se pudo obtener el clima");
+
+    const datos = await climaRes.json();
+
+    if (!datos.main || !datos.weather) {
+      resultado.innerHTML = `
+        <p style="color:red;">⚠️ No hay datos exactos para ${ciudad}.</p>
+        <p>Mostrando clima aproximado de la estación más cercana.</p>
+      `;
+    }
+
+    resultado.innerHTML = `
+      <h3>Clima cerca de ${name}${state ? ", " + state : ""}, ${country}</h3>
+      <p>🌡️ Temperatura: ${datos.main.temp} °C</p>
+      <p>🌥️ Condición: ${datos.weather[0].description}</p>
+      <p>💧 Humedad: ${datos.main.humidity}%</p>
+      <p>💨 Viento: ${datos.wind.speed} m/s</p>
+    `;
+  } catch (error) {
+    resultado.innerHTML = `<p style="color:red;">⚠️ Error: ${error.message}</p>`;
   }
+}
 </script>
-
-
 
 
 <!-- Consumo API mapa -->
