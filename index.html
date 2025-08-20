@@ -30,15 +30,15 @@
         <h1 class="titulo">WeatherNow</h1>
 
     <ul class="navigation-list">  <!-- Contenedor Padre / se aplica el display: flex-->
-        <li><a href="#sobre-mi">Sobre mí</a></li>   <!-- hijos de navigation-list-->
-        <li><a href="#habilidades">Habilidades</a></li>
-        <li><a href="#fenomenos-geologicos">Fenómenos Geológicos</a></li>
+        <li><a href="#inicio">Inicio</a></li>   <!-- hijos de navigation-list-->
         <li><a href="#fenomenos-meteorologicos">Fenómenos Meteorológicos</a></li>
+        <li><a href="#fenomenos-geologicos">Fenómenos Geológicos</a></li>
+        <li><a href="#Sección-general">Sección general</a></li>
     </ul>
    </header>
 
 
-  <section class="principal">     
+  <section class="principal" id="inicio">     
   <main class="buscarclima">
      <h5 class="consulta">Consulta el clima</h5>   
  
@@ -84,9 +84,9 @@
 
 
   <!-- Primera etapa de recomendaciones -->
-  <section class="suggestions-section-one">
-        <section class="name-suggestions-one" id="fenomenos-meteorologicos">
-            <h1 class="name-1">Recomendaciones útiles</h1>
+  <section class="suggestions-section-one" id="fenomenos-meteorologicos">
+        <section class="name-suggestions-one">
+          <h1 class="name-1">Recomendaciones útiles</h1>
             <h2 class="name-2">Fenómenos meteorológicos</h2>
         </section>
 
@@ -348,7 +348,7 @@
 <!-- Seccion general -->
 
 <section class="suggestions-section-two">
-    <section class="name-suggestions-two" id="fenomenos-geologicos">
+    <section class="name-suggestions-two" id="Sección-general">
             <h2 class="name-3"> Sección general</h2>
     </section>
 
@@ -438,7 +438,16 @@
   
 <!-- Consumo API Clima -->
 
+
+<!-- Fin Consumo API Clima -->
+
+
+
   <script>
+
+// Variable global para borrar marcador anterior si se hace otra búsqueda
+let marcadorUbicacion;
+
 async function buscarClima() {
   const ciudad = document.getElementById("city-input").value.trim();
   const resultado = document.getElementById("resultado");
@@ -451,19 +460,13 @@ async function buscarClima() {
   try {
     let geoData = [];
     let queryMX = `${ciudad},MX`;
-    
 
-    // Intentar primero en México
+    // Buscar coordenadas
     let geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(queryMX)}&limit=1&appid=${apiKey}`;
     let geoRes = await fetch(geoUrl);
     geoData = await geoRes.json();
 
-    // Si no hay resultados o el usuario escribió un lugar famoso sin país,
-    // hacer una búsqueda global para dar mejor precisión
-    if (
-      geoData.length === 0 || 
-      (geoData[0].country === "MX" && !ciudad.includes(",")) 
-    ) {
+    if (geoData.length === 0) {
       geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(ciudad)}&limit=3&appid=${apiKey}`;
       geoRes = await fetch(geoUrl);
       geoData = await geoRes.json();
@@ -473,23 +476,21 @@ async function buscarClima() {
       throw new Error("Localidad no encontrada");
     }
 
-    // Usar el primer resultado global
     const { lat, lon, name, state, country } = geoData[0];
+
+    // Centrar el mapa
+    map.setView([lat, lon], 7);
+
+    // Borrar marcador anterior si existe
+    if (marcadorUbicacion) {
+      map.removeLayer(marcadorUbicacion);
+    }
 
     // Obtener clima
     const climaUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=es`;
     const climaRes = await fetch(climaUrl);
-
     if (!climaRes.ok) throw new Error("No se pudo obtener el clima");
-
     const datos = await climaRes.json();
-
-    if (!datos.main || !datos.weather) {
-      resultado.innerHTML = `
-        <p style="color:red;">⚠️ No hay datos exactos para ${ciudad}.</p>
-        <p>Mostrando clima aproximado de la estación más cercana.</p>
-      `;
-    }
 
     resultado.innerHTML = `
       <h3>Clima cerca de ${name}${state ? ", " + state : ""}, ${country}</h3>
@@ -498,40 +499,128 @@ async function buscarClima() {
       <p>💧 Humedad: ${datos.main.humidity}%</p>
       <p>💨 Viento: ${datos.wind.speed} m/s</p>
     `;
+
+    // Crear marcador con ícono del clima
+    const iconClima = L.icon({
+      iconUrl: `https://openweathermap.org/img/wn/${datos.weather[0].icon}@2x.png`,
+      iconSize: [50, 50],
+      iconAnchor: [25, 50]
+    });
+
+    marcadorUbicacion = L.marker([lat, lon], { icon: iconClima }).addTo(map)
+      .bindPopup(`
+        <b>${name}${state ? ", " + state : ""}</b><br>
+        🌡️ ${datos.main.temp} °C<br>
+        🌥️ ${datos.weather[0].description}<br>
+        💧 ${datos.main.humidity}% humedad<br>
+        💨 ${datos.wind.speed} m/s
+      `)
+      .openPopup();
+
+    // Consultar alertas
+    const alertUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}&lang=es`;
+    const alertRes = await fetch(alertUrl);
+    const alertData = await alertRes.json();
+
+    if (alertData.alerts) {
+      alertData.alerts.forEach(alert => {
+        // Elegir icono según tipo de alerta
+        let iconUrl = "https://cdn-icons-png.flaticon.com/512/753/753318.png"; // default
+        if (/tormenta/i.test(alert.event)) iconUrl = "https://cdn-icons-png.flaticon.com/512/1146/1146869.png";
+        else if (/calor|ola de calor/i.test(alert.event)) iconUrl = "https://cdn-icons-png.flaticon.com/512/869/869869.png";
+        else if (/nieve/i.test(alert.event)) iconUrl = "https://cdn-icons-png.flaticon.com/512/642/642102.png";
+
+        const iconoAlerta = L.icon({
+          iconUrl,
+          iconSize: [32, 32],
+          iconAnchor: [16, 32],
+          popupAnchor: [0, -32]
+        });
+
+        L.marker([lat, lon], { icon: iconoAlerta }).addTo(map)
+          .bindPopup(`
+            <b>⚠ ${alert.event}</b><br>
+            <small><b>Inicio:</b> ${new Date(alert.start * 1000).toLocaleString()}</small><br>
+            <small><b>Fin:</b> ${new Date(alert.end * 1000).toLocaleString()}</small><br>
+            <p>${alert.description}</p>
+            <small><i>Fuente: ${alert.sender_name}</i></small>
+          `);
+      });
+    }
+
   } catch (error) {
     resultado.innerHTML = `<p style="color:red;">⚠️ Error: ${error.message}</p>`;
   }
 }
+
+
 </script>
 
 
-<!-- Consumo API mapa -->
+<!-- Inicio de footer -->
           <!-- PIE DE PÁGINA -->
   <footer>
-    Datos del clima en tiempo real proporcionados por OpenWeatherMap.
+    <div class="footer">
+      <div class="seccion footer-uno">
+        <p class="derechos">© 2025 DiazSoft. Todos los derechos reservados.</p>
+        <p class="autor">WeatherNow™ es un producto de DiazSoft.</p>
+      </div>
+
+      <div class="seccion footer-dos">
+        <p class="derechos">Política de privacidad</p>
+        <p class="autor">Términos y condiciones</p>
+        <p class="contacto">Contacto</p>
+      </div>
+
+      <div class="seccion footer-tres">
+        <p class="derechos">© 2025 DiazSoft. Todos los derechos reservados.</p>
+        <p class="autor">WeatherNow™ es un producto de DiazSoft.</p>
+      </div>
+    </div>
+
+      <p class="enlace-clima">Datos del clima en tiempo real proporcionados por OpenWeatherMap.</p>
+
+    <div class="icons">
+        <a href="https://github.com/programador-D92" target="_blank">
+          <img src="assets/icons/github-white.svg" alt="GitHub" class="GitHub-icon">
+          <span class="name-GitHub">GitHub</span>
+        </a>
+
+        <a href="https://www.linkedin.com/in/jose-d%C3%ADaz-silvas-938728360/" target="_blank">
+          <img src="assets/icons/linkedin-white.svg" alt="Linkedin" class="linkedin-icon">
+          <span class="name-linkedin">Linkedin</span>
+        </a>
+
+        <a href="#" target="_blank">
+          <img src="assets/icons/youtube-white.svg" alt="youtube" class="youtube-icon">
+          <span class="name-youtube">YouTube</span>
+        </a>
+
+        <a href="#" target="_blank">
+          <img src="assets/icons/facebook-white.svg" alt="facebook" class="facebook-icon">
+          <sapan class="name-facebook">Facebook</sapan>
+        </a>
+    </div>
+ 
   </footer>
 
-  <!-- Scripts al final para evitar errores -->
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script>
-    // Crear el mapa centrado en México
-    var map = L.map('map').setView([23.6345, -102.5528], 5);
+  
+<!-- Consumo API mapa -->
+<!-- Scripts al final para evitar errores -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+  // Crear el mapa centrado en México
+  var map = L.map('map').setView([23.6345, -102.5528], 5);
 
-    // Capa base de calles (OpenStreetMap)
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
+  // Capa base de calles (OpenStreetMap)
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
 
-    // Tu clave de OpenWeatherMap (reemplázala por la tuya si cambia)
-    const apiKey = '66f01d21f7c8ae49ead47ae5964e61c4';
+  // Tu clave de OpenWeatherMap
+  const apiKey = '66f01d21f7c8ae49ead47ae5964e61c4';
 
-    // Capa de nubes en tiempo real (OpenWeatherMap)
-    L.tileLayer(`https://tile.openweathermap.org/map/clouds_new/{z}/{x}/{y}.png?appid=${apiKey}`, {
-      attribution: '© OpenWeatherMap',
-      opacity: 0.6
-    }).addTo(map);
-
-     // Capas climáticas
+  // Capas climáticas
   const clouds = L.tileLayer(`https://tile.openweathermap.org/map/clouds_new/{z}/{x}/{y}.png?appid=${apiKey}`, {opacity: 0.7});
   const temp = L.tileLayer(`https://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=${apiKey}`, {opacity: 0.6});
   const precip = L.tileLayer(`https://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid=${apiKey}`, {opacity: 0.5});
@@ -539,7 +628,6 @@ async function buscarClima() {
   const wind = L.tileLayer(`https://tile.openweathermap.org/map/wind_new/{z}/{x}/{y}.png?appid=${apiKey}`, {opacity: 0.5});
   const snow = L.tileLayer(`https://tile.openweathermap.org/map/snow/{z}/{x}/{y}.png?appid=${apiKey}`, {opacity: 0.5});
 
-  // Agrupar en un objeto para el control de capas
   const overlays = {
     "☁️ Nubes": clouds,
     "🌡️ Temperatura": temp,
@@ -549,13 +637,42 @@ async function buscarClima() {
     "🔵 Presión": pressure
   };
 
-  // Agregar control de capas
   L.control.layers(null, overlays).addTo(map);
+  clouds.addTo(map); // Capa por defecto
 
-  // Mostrar por defecto una capa (ej. nubes)
-  clouds.addTo(map);
+  // === NUEVO: Obtener alertas ===
+  async function getWeatherAlerts(lat, lon) {
+    const url = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}&lang=es`;
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
 
-  </script>
+      if (data.alerts) {
+        data.alerts.forEach(alert => {
+          // Crear marcador en la posición central (puedes ajustarlo a la zona real)
+          const marker = L.marker([lat, lon]).addTo(map);
+          marker.bindPopup(`
+            <b>⚠ ${alert.event}</b><br>
+            <small><b>Inicio:</b> ${new Date(alert.start * 1000).toLocaleString()}</small><br>
+            <small><b>Fin:</b> ${new Date(alert.end * 1000).toLocaleString()}</small><br>
+            <p>${alert.description}</p>
+            <small><i>Fuente: ${alert.sender_name}</i></small>
+          `);
+        });
+      } else {
+        console.log("No hay alertas activas en esta ubicación");
+      }
+    } catch (err) {
+      console.error("Error al obtener alertas:", err);
+    }
+  }
+
+  // Llamada inicial (México)
+  getWeatherAlerts(23.6345, -102.5528);
+</script>
+
+
+<!-- Fin consumo API mapa -->
 
     </section>
 

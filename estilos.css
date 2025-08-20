@@ -27,7 +27,10 @@ html {
   justify-content: center;
   list-style: none;
   height: 2rem;
+  font-family: 'Roboto Condensed', sans-serif;
+ 
 }
+
 
 .principal{
     display: flex;
@@ -249,21 +252,120 @@ html {
       width: 100%;
     }
 
-    footer {
-      text-align: center;
-      padding: 1em;
-      background-color: #ecf0f1;
-      font-size: 0.9em;
+  
+
+  /* estilos footer */
+    footer{
+      background-color: #363432;
+      padding: 1rem;
+    }
+
+    .footer{
+      height: 10rem;
+      color: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8rem;
+      font-family: 'Roboto Condensed', sans-serif;
+  
+    }
+
+    .derechos{
+      margin-bottom: 1rem;
+    }
+
+    .autor{
+      margin-bottom: 1rem;
+    }
+
+      .enlace-clima{
+      color: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1rem;
+      font-family: 'Roboto Condensed', sans-serif;
+     }
+
+
+    /* estilos de iconos */
+    .icons{
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 4rem;
+    }
+
+    .icons a{
+      text-decoration: none;
     }
 
 
+    /* estilos de GitHub */
+    .GitHub-icon{
+      height: 2.5rem;
+      width: 2.5rem;
+      cursor: pointer;
+      margin-right: 1rem;
+    }
+
+    .name-GitHub{
+      color: #f0f0f0;
+      font-family: 'Roboto Condensed', sans-serif ;
+    }
+
+    .GitHub-icon:hover,
+    .linkedin-icon:hover,
+    .youtube-icon:hover,
+    .facebook-icon:hover{
+        opacity: 0.7;
+
+    }
+    .footer-dos p{
+        cursor: pointer;
+    }
+
+    /* estilos de Linkedin */
+    .linkedin-icon{
+      height: 2.5rem;
+      width: 2.5rem;
+      cursor: pointer;
+      margin-right: 1rem;
+    }
+
+    .name-linkedin{
+      color: #f0f0f0;
+      font-family:'Roboto Condensed', sans-serif;
+    }
+
+    /* estilos de youtube */
+    .youtube-icon{
+      height: 2.2rem;
+      width: 2.8rem;
+      cursor: pointer;
+      margin-right: 1rem;
+    }
+
+    .name-youtube{
+      color:#f0f0f0;
+      font-family:'Roboto Condensed', sans-serif;
+    }
+
+    /* estilos de facebook */
+
+    .facebook-icon{
+      height: 2.5rem;
+      width: 2.5rem;
+      cursor: pointer;
+      margin-right: 1rem;
+    }
+
+    .name-facebook{
+      color: #f0f0f0;
+      font-family: 'Roboto Condensed', sans-serif;
+    }
+   
 
 
-
-
-
-
-
-
-
-
+    /* estilos de animaciones cursor */
